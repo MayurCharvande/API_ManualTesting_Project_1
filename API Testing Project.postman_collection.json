@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "48c6e01a-41ce-4c86-b3d1-d6af1bf20eea",
+		"name": "API Testing Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20087528"
+	},
+	"item": [
+		{
+			"name": "https://thetestingworldapi.com/api/studentsDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://thetestingworldapi.com/api/studentsDetails",
+					"protocol": "https",
+					"host": [
+						"thetestingworldapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"studentsDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://thetestingworldapi.com/api/studentsDetails",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 1,\r\n  \"first_name\": \"Test-User-fn\",\r\n  \"middle_name\": \"Test-User-mn\",\r\n  \"last_name\": \"Test-User-ln\",\r\n  \"date_of_birth\": \"03-04-1997\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://thetestingworldapi.com/api/studentsDetails",
+					"protocol": "https",
+					"host": [
+						"thetestingworldapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"studentsDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://thetestingworldapi.com/api/studentsDetails/10063084",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 10063084,\r\n        \"first_name\": \"Test-User-fn-updated\",\r\n        \"middle_name\": \"Test-User-mn\",\r\n        \"last_name\": \"Test-User-ln\",\r\n        \"date_of_birth\": \"03-04-1997\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://thetestingworldapi.com/api/studentsDetails/10063084",
+					"protocol": "https",
+					"host": [
+						"thetestingworldapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"studentsDetails",
+						"10063084"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://thetestingworldapi.com/api/studentsDetails/10063084",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/* way 1: validat the status code is 200  */\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"/* way 2: validate the status code from the List [200, 201, 500 etc] */\r",
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+							"});\r",
+							"/* validat the status code 200 has string OK or not  */\r",
+							"pm.test(\"Status code 200 name has string - OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"/* validat the response time is less then 2000ms  */\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"/* validat the Jason Body which you have, having the string as you aspected  */\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Test-User-fn-updated\");\r",
+							"});\r",
+							"/* validate the Key present in the header or not */\r",
+							"pm.test(\"Expected Keys in the header are present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.response.to.have.header(\"Cache-Control\");\r",
+							"    pm.response.to.have.header(\"Server\");\r",
+							"    pm.response.to.have.header(\"Content-Length\");\r",
+							"});\r",
+							"/* validate the values present infromt of the key are correct in the header or not */\r",
+							"pm.test(\"Expected values in the header are present\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).eql(\"application/json; charset=utf-8\");\r",
+							"    pm.expect(pm.response.headers.get(\"Cache-Control\")).eql(\"no-cache\");\r",
+							"    pm.expect(pm.response.headers.get(\"Server\")).eql(\"Microsoft-IIS/10.0\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Length\")).eql(\"161\");\r",
+							"});\r",
+							"/* validate response body content using Jason path, this is used to check that wether your value is exact infront of the required key or not */\r",
+							"pm.test(\"Your test name/value is exact infront of your key\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.first_name).to.eql(\"Test-User-fn-updated\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://thetestingworldapi.com/api/studentsDetails/10063084",
+					"protocol": "https",
+					"host": [
+						"thetestingworldapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"studentsDetails",
+						"10063084"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
